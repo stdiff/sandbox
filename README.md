@@ -4,7 +4,7 @@ Small scripts and analysis. Most of them are written in Python.
 
 ## Inventory (from new to old)
 
-### 02. Recom Analysis and Experiment in relation to recommender systems
+### 02. Analysis and Experiment in relation to recommender systems
 
 Keywords: `recommender system`, `customer behavior`
 
