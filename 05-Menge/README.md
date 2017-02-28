@@ -10,7 +10,7 @@ This module provides a subset of functionalities of the built-in type `set`.
 
 - Each element of a set must be hashable.
 - A constructor takes an iterable object and create an instance. 
-- An instance is a generator. But the order of emitted elements is not fixed.
+- An instance is iterable. But the order of emitted elements is not fixed.
 - An instance can give a string representation like `set`.
 - `len(A)` returns the cardinal number of the set.
 
