@@ -4,6 +4,13 @@ Small scripts and analysis. Most of them are written in Python.
 
 ## Inventory (from new to old)
 
+### 04 Spark and Hadoop on a Raspberry Pi
+
+Keywords: `MapReduce`, `Apache Hadoop`, `Apache Spark`
+
+README.md is the main object: notes on the installation of Hadoop and Spark
+on a Raspberry Pi. There are also some scripts for MapReduce tasks.
+
 ### 03. Twitter Retriever
 
 Keywords: `REST API`, `NoSQL`, `MongoDB`
