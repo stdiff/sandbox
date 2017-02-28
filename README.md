@@ -4,7 +4,13 @@ Small scripts and analysis. Most of them are written in Python.
 
 ## Inventory (from new to old)
 
-### 04 Spark and Hadoop on a Raspberry Pi
+### 05. Menge
+
+Keywords: `OOP`, `test`
+
+A practice of writing a class module in Python.
+
+### 04. Spark and Hadoop on a Raspberry Pi
 
 Keywords: `MapReduce`, `Apache Hadoop`, `Apache Spark`
 
