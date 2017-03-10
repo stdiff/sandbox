@@ -30,6 +30,7 @@ It is better to enlarge the swap size. (This is needed to install an R package.)
 
 - [Running a notebook server](http://jupyter-notebook.readthedocs.io/en/latest/public_server.html)
 - We can use a terminal on Jupyter.
+- `xgboost` [is NOT avilable because of the processor](https://github.com/dmlc/xgboost/issues/1921).
 
 ## Hadoop 
 
