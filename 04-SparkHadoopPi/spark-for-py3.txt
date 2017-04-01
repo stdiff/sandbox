@@ -1,0 +1,143 @@
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/decision_tree_classification_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/decision_tree_classification_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/decision_tree_classification_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/decision_tree_classification_example.py	2017-04-01 17:05:39.475509550 +0200
+@@ -44,7 +44,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
++    testErr = labelsAndPredictions.filter(lambda v, p: v != p).count() / float(testData.count())
+     print('Test Error = ' + str(testErr))
+     print('Learned classification tree model:')
+     print(model.toDebugString())
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/decision_tree_regression_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/decision_tree_regression_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/decision_tree_regression_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/decision_tree_regression_example.py	2017-04-01 17:06:00.390649599 +0200
+@@ -44,7 +44,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testMSE = labelsAndPredictions.map(lambda (v, p): (v - p) * (v - p)).sum() /\
++    testMSE = labelsAndPredictions.map(lambda v, p: (v - p) * (v - p)).sum() /\
+         float(testData.count())
+     print('Test Mean Squared Error = ' + str(testMSE))
+     print('Learned regression tree model:')
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/gradient_boosting_classification_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/gradient_boosting_classification_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/gradient_boosting_classification_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/gradient_boosting_classification_example.py	2017-04-01 17:06:42.328924605 +0200
+@@ -43,7 +43,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
++    testErr = labelsAndPredictions.filter(lambda v, p: v != p).count() / float(testData.count())
+     print('Test Error = ' + str(testErr))
+     print('Learned classification GBT model:')
+     print(model.toDebugString())
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/gradient_boosting_regression_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/gradient_boosting_regression_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/gradient_boosting_regression_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/gradient_boosting_regression_example.py	2017-04-01 17:06:58.972239802 +0200
+@@ -43,7 +43,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testMSE = labelsAndPredictions.map(lambda (v, p): (v - p) * (v - p)).sum() /\
++    testMSE = labelsAndPredictions.map(lambda v, p: (v - p) * (v - p)).sum() /\
+         float(testData.count())
+     print('Test Mean Squared Error = ' + str(testMSE))
+     print('Learned regression GBT model:')
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/linear_regression_with_sgd_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/linear_regression_with_sgd_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/linear_regression_with_sgd_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/linear_regression_with_sgd_example.py	2017-04-01 17:07:34.306785505 +0200
+@@ -44,7 +44,7 @@
+     # Evaluate the model on training data
+     valuesAndPreds = parsedData.map(lambda p: (p.label, model.predict(p.features)))
+     MSE = valuesAndPreds \
+-        .map(lambda (v, p): (v - p)**2) \
++        .map(lambda v, p: (v - p)**2) \
+         .reduce(lambda x, y: x + y) / valuesAndPreds.count()
+     print("Mean Squared Error = " + str(MSE))
+ 
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.py	2017-04-01 17:07:53.278004455 +0200
+@@ -44,7 +44,7 @@
+ 
+     # Evaluating the model on training data
+     labelsAndPreds = parsedData.map(lambda p: (p.label, model.predict(p.features)))
+-    trainErr = labelsAndPreds.filter(lambda (v, p): v != p).count() / float(parsedData.count())
++    trainErr = labelsAndPreds.filter(lambda v, p: v != p).count() / float(parsedData.count())
+     print("Training Error = " + str(trainErr))
+ 
+     # Save and load model
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/naive_bayes_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/naive_bayes_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/naive_bayes_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/naive_bayes_example.py	2017-04-01 17:08:28.644547978 +0200
+@@ -50,7 +50,7 @@
+ 
+     # Make prediction and test accuracy.
+     predictionAndLabel = test.map(lambda p: (model.predict(p.features), p.label))
+-    accuracy = 1.0 * predictionAndLabel.filter(lambda (x, v): x == v).count() / test.count()
++    accuracy = 1.0 * predictionAndLabel.filter(lambda x, v: x == v).count() / test.count()
+     print('model accuracy {}'.format(accuracy))
+ 
+     # Save and load model
+@@ -59,7 +59,7 @@
+     model.save(sc, output_dir)
+     sameModel = NaiveBayesModel.load(sc, output_dir)
+     predictionAndLabel = test.map(lambda p: (sameModel.predict(p.features), p.label))
+-    accuracy = 1.0 * predictionAndLabel.filter(lambda (x, v): x == v).count() / test.count()
++    accuracy = 1.0 * predictionAndLabel.filter(lambda x, v: x == v).count() / test.count()
+     print('sameModel accuracy {}'.format(accuracy))
+ 
+     # $example off$
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/random_forest_classification_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/random_forest_classification_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/random_forest_classification_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/random_forest_classification_example.py	2017-04-01 17:08:43.351942133 +0200
+@@ -45,7 +45,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testErr = labelsAndPredictions.filter(lambda (v, p): v != p).count() / float(testData.count())
++    testErr = labelsAndPredictions.filter(lambda v, p: v != p).count() / float(testData.count())
+     print('Test Error = ' + str(testErr))
+     print('Learned classification forest model:')
+     print(model.toDebugString())
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/random_forest_regression_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/random_forest_regression_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/random_forest_regression_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/random_forest_regression_example.py	2017-04-01 17:08:52.763554391 +0200
+@@ -45,7 +45,7 @@
+     # Evaluate model on test instances and compute test error
+     predictions = model.predict(testData.map(lambda x: x.features))
+     labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+-    testMSE = labelsAndPredictions.map(lambda (v, p): (v - p) * (v - p)).sum() /\
++    testMSE = labelsAndPredictions.map(lambda v, p: (v - p) * (v - p)).sum() /\
+         float(testData.count())
+     print('Test Mean Squared Error = ' + str(testMSE))
+     print('Learned regression forest model:')
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/svm_with_sgd_example.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/svm_with_sgd_example.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/mllib/svm_with_sgd_example.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/mllib/svm_with_sgd_example.py	2017-04-01 17:09:08.782894335 +0200
+@@ -38,7 +38,7 @@
+ 
+     # Evaluating the model on training data
+     labelsAndPreds = parsedData.map(lambda p: (p.label, model.predict(p.features)))
+-    trainErr = labelsAndPreds.filter(lambda (v, p): v != p).count() / float(parsedData.count())
++    trainErr = labelsAndPreds.filter(lambda v, p: v != p).count() / float(parsedData.count())
+     print("Training Error = " + str(trainErr))
+ 
+     # Save and load model
+diff -Naur spark-2.1.0-bin-hadoop2.7/examples/src/main/python/streaming/network_wordjoinsentiments.py spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/streaming/network_wordjoinsentiments.py
+--- spark-2.1.0-bin-hadoop2.7/examples/src/main/python/streaming/network_wordjoinsentiments.py	2016-12-16 03:18:15.000000000 +0100
++++ spark-2.1.0-bin-hadoop2.7-py3/examples/src/main/python/streaming/network_wordjoinsentiments.py	2017-04-01 17:04:43.969790647 +0200
+@@ -67,8 +67,8 @@
+     # with the static RDD inside the transform() method and then multiplying
+     # the frequency of the words by its sentiment value
+     happiest_words = word_counts.transform(lambda rdd: word_sentiments.join(rdd)) \
+-        .map(lambda (word, tuple): (word, float(tuple[0]) * tuple[1])) \
+-        .map(lambda (word, happiness): (happiness, word)) \
++        .map(lambda word, tuple: (word, float(tuple[0]) * tuple[1])) \
++        .map(lambda word, happiness: (happiness, word)) \
+         .transform(lambda rdd: rdd.sortByKey(False))
+ 
+     happiest_words.foreachRDD(print_happiest_words)

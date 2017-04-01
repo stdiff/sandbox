@@ -80,7 +80,23 @@ receive a file path and return key-value pairs to the standard output.
   [Guide](http://spark.apache.org/docs/latest/ml-guide.html),
   [Documentation](http://spark.apache.org/docs/latest/api/python/pyspark.mllib.html)
 
-To use Python3 for the PySpark-shell we need the following environment.
+To use PySpark-API, especially MLlib, from Python3, we need to modify some
+Python scripts in the Spark tar ball. In the directory 
+`spark-2.1.0-bin-hadoop2.7/examples/src/main/python/{streaming|mllib}` there
+are several scripts which are not valid in Python3 and these cause errors
+when installing PySpark. So we need to fix them. The invalid lines are all
+of form 
+
+	lambda (v, p): ......... ## valid only for Python 2
+
+This must be 
+
+	lambda v, p: ......
+
+`spark-for-py3.txt` is a patch to fix such lamda statements.
+
+To use Python3 (instead of Python2) for the PySpark-shell we need the
+following environment.
 
 	export PYSPARK_PYTHON=python3
 
@@ -94,4 +110,5 @@ We can also use PySpark not through PySpark-shell by importing `pyspark.SparkCon
 
 	from pyspark import SparkContext
 	sc = SparkContext() # this takes a while
+
 
