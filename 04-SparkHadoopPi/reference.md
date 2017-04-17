@@ -534,6 +534,26 @@ need to specify an evaluation metric (RMSE, etc)
 - `from pyspark.ml.evaluation import RegressionEvaluator`
   - metricName : rmse (default) , mse, mae 
 
+The following function shows the performance of the trained model.
+
+	from collections import defaultdict
+
+	def validation_result(grid,metrics,value='score',sort=False):
+		df = defaultdict(list)
+
+		for param in grid:
+			for param_obj, param_val in param.items():
+				df[param_obj.name].append(param_val)
+
+		df = pd.DataFrame(df)
+		df[value] = metrics
+
+		if sort:
+			return df.sort_values(by=value, ascending=False)
+		else:
+			return df
+
+	validation_result(grid_plr, model_plr.validationMetrics,sort=True)
 
 ### 3-b. Train-Validation-Split
 
